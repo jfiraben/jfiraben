@@ -27,7 +27,7 @@ concurrency:
 jobs:
   # Build job
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Specify the Ubuntu version explicitly
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -41,6 +41,8 @@ jobs:
           bundle install
       - name: Build Jekyll site
         run: bundle exec jekyll build
+      - name: Print Jekyll build logs for debugging
+        run: cat _site/build.log
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
@@ -49,7 +51,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Specify the Ubuntu version explicitly
     needs: build
     steps:
       - name: Deploy to GitHub Pages
