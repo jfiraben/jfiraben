@@ -44,6 +44,12 @@ jobs:
           bundle exec jekyll build --trace 2>&1 | tee build.log
       - name: Print Jekyll build logs for debugging
         run: cat build.log
+      - name: Check if _site directory exists
+        run: |
+          if [ ! -d "_site" ]; then
+            echo "_site directory does not exist"
+            exit 1
+          fi
       - name: Upload artifact
         if: success()
         uses: actions/upload-pages-artifact@v3
