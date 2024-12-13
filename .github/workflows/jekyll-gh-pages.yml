@@ -40,11 +40,15 @@ jobs:
           gem install bundler
           bundle install
       - name: Build Jekyll site
-        run: bundle exec jekyll build
+        run: |
+          bundle exec jekyll build --trace 2>&1 | tee build.log
       - name: Print Jekyll build logs for debugging
-        run: cat _site/build.log
+        run: cat build.log
       - name: Upload artifact
+        if: success()
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
 
   # Deployment job
   deploy:
