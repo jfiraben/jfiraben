@@ -4,7 +4,8 @@ name: Deploy Jekyll site to GitHub Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches:
+      - main  # Set this to your default branch
   pull_request:
     branches:
       - main  # Set this to your default branch
